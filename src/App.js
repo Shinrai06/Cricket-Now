@@ -1,9 +1,9 @@
 import './App.css';
-import {Button, Card } from "@mui/material"
+import { Grid, Typography, Box } from "@mui/material"
 import Navbar from './components/navbar';
 import MyCard from './components/card';
 import { getMatches } from './API/API';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 
 function App() {
@@ -12,24 +12,27 @@ function App() {
   
   useEffect(()=>{
     getMatches()
-        .then((data)=>{
-          setMatches(data.matches);
-          console.log(data);
+        .then( data => {
+          setMatches([...data.data]);
+          console.log("DATA:", data.data);
         })
-        .catch((err)=>alert("Could not load the data"));
+        .catch( err => alert("Could not load the data"));
   },[]);
 
 
   return (
     <div className="App">
       <Navbar />
-      <h1>Welcome to Live Cricket</h1>
-      {
-        matches.map((match)=>{
-          <MyCard match="match" />
-        })
-      }
-      <Button variant="contained" color='primary'>Click me!!</Button>
+      <Typography className='heading' variant='h3' mt="2">Welcome to Live Cricket(t20 matches)</Typography>
+      <Grid container justifyContent='center'>
+        <Box  className='card-box'>
+          {matches.map((match)=> (
+            <Fragment>
+              {(match.matchType==="t20")? (<MyCard key={match.id} match={match} />):("")}
+            </Fragment>
+          ))}
+        </Box>
+      </Grid>
     </div>
   );
 }
