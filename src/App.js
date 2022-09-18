@@ -23,7 +23,8 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Typography className='heading' variant='h3' mt="2">Welcome to Live Cricket(t20 matches)</Typography>
+      <Typography className='heading' variant='h3' mt="2">Welcome to Live Cricket</Typography>
+      <Typography className='heading' variant='h5' mt='2'>(t-20 matches)</Typography>
       <Grid container justifyContent='center'>
         <Box  className='card-box'>
           {matches.map((match)=> (
